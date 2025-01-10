@@ -22,6 +22,33 @@ namespace Library.Services
             return _repositoryWrapper.ReservedBookRepository.FindAll().ToList();
         }
 
+        public ReservedBook GetReservedBookById(int id)
+        {
+            return _repositoryWrapper.ReservedBookRepository.FindByCondition(rb => rb.IdReservedBook == id).FirstOrDefault();
+        }
+        public async Task<ReservedBook> GetReservedBookByUserAndISBNAsync(string userId, string bookISBN)
+        {
+            return await _repositoryWrapper.ReservedBookRepository.FindByCondition(rb => rb.IdUser == userId && rb.BookISBN == bookISBN).FirstOrDefaultAsync();
+        }
+        public async Task<List<ReservedBook>> GetReservedBooksByUserAsync(string userId)
+        {
+            return await _repositoryWrapper.ReservedBookRepository
+                                                     .FindByCondition(rb => rb.IdUser == userId)
+                                                     .Include(rb => rb.Book)
+                                                     .ToListAsync();
+        }
+
+        public async Task ClearReservedBooksByUserAsync(string userId)
+        {
+            var reservedBooks = await _repositoryWrapper.ReservedBookRepository
+                .FindByCondition(rb => rb.IdUser == userId)
+                .ToListAsync();
+            foreach (var reservedBook in reservedBooks)
+            {
+                DeleteReservedBook(reservedBook.IdReservedBook);
+            }
+        }
+
         public void AddReservedBook(ReservedBook reservedBook)
         {
             _repositoryWrapper.ReservedBookRepository.Create(reservedBook);

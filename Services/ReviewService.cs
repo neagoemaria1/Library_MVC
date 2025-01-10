@@ -21,6 +21,16 @@ namespace Library.Services
             return _repositoryWrapper.ReviewRepository.FindAll().ToList();
         }
 
+        public Review GetReviewById(int id)
+        {
+            return _repositoryWrapper.ReviewRepository.FindByCondition(r => r.IdReview == id).FirstOrDefault();
+        }
+
+        public List<Review> GetReviewsByBookISBN(string isbn)
+        {
+            return _repositoryWrapper.ReviewRepository.FindByCondition(r => r.BookISBN == isbn).ToList();
+        }
+
         public void AddReview(Review review)
         {
             _repositoryWrapper.ReviewRepository.Create(review);

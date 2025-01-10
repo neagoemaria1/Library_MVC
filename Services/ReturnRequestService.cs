@@ -12,22 +12,31 @@ namespace Library.Services
     {
         private readonly IRepositoryWrapper _repositoryWrapper;
 
+
+        public async Task<ReturnRequest> GetReturnRequestByIdAsync(int requestId)
+        {
+            return await _repositoryWrapper.ReturnRequestRepository.FindByCondition(r => r.IdRequest == requestId).FirstOrDefaultAsync();
+        }
+
         public ReturnRequestService(IRepositoryWrapper repositoryWrapper)
         {
             _repositoryWrapper = repositoryWrapper;
         }
-
+        public async Task<ReturnRequest> GetReturnRequestByUserAndBookISBNAsync(string userId, string bookISBN)
+        {
+            return await _repositoryWrapper.ReturnRequestRepository.FindByCondition(r => r.IdUser == userId && r.BookISBN == bookISBN).FirstOrDefaultAsync();
+        }
         public async Task<IEnumerable<ReturnRequest>> GetAllReturnRequestsAsync()
         {
             return await _repositoryWrapper.ReturnRequestRepository.FindAll().ToListAsync();
         }
+
 
         public async Task AddReturnRequestAsync(ReturnRequest returnRequest)
         {
             _repositoryWrapper.ReturnRequestRepository.Create(returnRequest);
             _repositoryWrapper.Save();
         }
-
 
         public async Task DeleteReturnRequestAsync(int requestId)
         {

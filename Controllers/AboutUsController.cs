@@ -2,11 +2,11 @@
 
 namespace Library.Controllers
 {
-   public class AboutUsController : Controller
-   {
-      public IActionResult Index()
-      {
-         return View();
-      }
-   }
+    public class AboutUsController : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+    }
 }

@@ -22,6 +22,11 @@ namespace Library.Services
             return _repositoryWrapper.RequestRepository.FindAll().ToList();
         }
 
+        public Request GetRequestById(int id)
+        {
+            return _repositoryWrapper.RequestRepository.FindByCondition(r => r.IdRequest == id).FirstOrDefault();
+        }
+
         public void AddRequest(Request request)
         {
             _repositoryWrapper.RequestRepository.Create(request);
@@ -46,6 +51,12 @@ namespace Library.Services
             {
                 throw new ArgumentException($"Request with ID {id} not found.");
             }
+        }
+
+
+        public Request GetRequestByUserAndBookISBN(string userId, string bookISBN)
+        {
+            return _repositoryWrapper.RequestRepository.FindByCondition(r => r.IdUser == userId && r.BookISBN == bookISBN).FirstOrDefault();
         }
     }
 

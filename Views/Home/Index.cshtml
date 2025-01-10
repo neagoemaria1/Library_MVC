@@ -20,7 +20,8 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"]</title>
-
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
 		  rel="stylesheet" />
@@ -35,8 +36,12 @@
 			<a href="@Url.Action("Index", "Home")"><i class="bx bx-home-heart"></i>Home</a>
 			<a href="@Url.Action("Index", "AboutUs")"><i class="bx bxs-news"></i>AboutUs</a>
 			<a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
+			<a href="@Url.Action("Index", "WishList")"><i class="fa fa-heart"></i>WishList</a>
 			<a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
-			
+			@if (isAdmin)
+			{
+				<a href="@Url.Action("AdminRequests", "Request")"><i class="bx bx-buildings"></i>Admin Requests</a>
+			}
 		</nav>
 		<partial name="_LoginPartial" />
 	</header>
@@ -53,6 +58,27 @@
 		</div>
 	</div>
 
-	
+	<div class="return-container">
+		@if (Model != null && Model.Any())
+		{
+			<div class="reminder">
+				<h2>Reminder: You have reserved books to return!</h2>
+				<ul>
+					@foreach (var reservedBook in Model)
+					{
+						<li>
+							@reservedBook.Book.Title (ISBN: @reservedBook.BookISBN)
+							<form method="post" action="@Url.Action("ReturnBook", "Home")" style="display:inline;">
+								<input type="hidden" name="id" value="@reservedBook.IdReservedBook" />
+								<button type="submit" class="btn return-book">Return</button>
+							</form>
+						</li>
+					}
+				</ul>
+			</div>
+		}
+	</div>
+	<
+	<script src="@Url.Content("~/js/script.js")"></script>
 </body>
 </html>
