@@ -48,6 +48,12 @@ builder.Services.AddScoped<IReturnRequestService, ReturnRequestService>();
 builder.Services.AddScoped<IContactFormRepository, ContactFormRepository>();
 builder.Services.AddScoped<IContactFormService, ContactFormService>();
 
+builder.Services.AddScoped<IWishListRepository, WishListRepository>();
+builder.Services.AddScoped<IWishListService, WishListService>();
+
+builder.Services.AddScoped<IWishList_BookRepository, WishList_BookRepository>();
+builder.Services.AddScoped<IWishList_BookService, WishList_BookService>();
+
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
@@ -62,22 +68,22 @@ builder.Services.AddDbContext<LibraryContext>(options => options.UseSqlServer(bu
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-	options.Password.RequireDigit = true;
-	options.Password.RequiredLength = 8;
-	options.Password.RequireNonAlphanumeric = false;
-	options.Password.RequireUppercase = true;
-	options.Password.RequireLowercase = false;
-	options.Password.RequiredUniqueChars = 6;
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = false;
+    options.Password.RequiredUniqueChars = 6;
 
-	options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-	options.Lockout.MaxFailedAccessAttempts = 10;
-	options.Lockout.AllowedForNewUsers = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+    options.Lockout.MaxFailedAccessAttempts = 10;
+    options.Lockout.AllowedForNewUsers = true;
 
-	options.User.RequireUniqueEmail = true;
-	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 
-	options.SignIn.RequireConfirmedPhoneNumber = false;
-	options.Stores.MaxLengthForKeys = 128;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+    options.Stores.MaxLengthForKeys = 128;
 });
 
 
@@ -86,9 +92,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -98,8 +104,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	 name: "default",
-	 pattern: "{controller=Home}/{action=Index}/{id?}");
+     name: "default",
+     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
@@ -111,9 +117,9 @@ app.Run();
 
 async Task SeedRoles(IHost app)
 {
-	using (var scope = app.Services.CreateScope())
-	{
-		var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-		await ContextSeed.SeedRolesAsync(roleManager);
-	}
+    using (var scope = app.Services.CreateScope())
+    {
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        await ContextSeed.SeedRolesAsync(roleManager);
+    }
 }

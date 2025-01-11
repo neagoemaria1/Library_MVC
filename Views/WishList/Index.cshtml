@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Library.Services.Interfaces
+@inject IUserService UserService
+@model Library.Models.WishList
+
+@{
+    var user = UserService.GetCurrentUser();
+    var isAdminTask = UserService.IsUserAdminAsync(user);
+    isAdminTask.Wait();
+    var isAdmin = isAdminTask.Result;
+}
+
+@{
+    ViewData["Title"] = "WishList";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/css/wishlist.css")" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+          rel="stylesheet" />
+</head>
+<body class="WishList-body ">
+    <header class="header-nav">
+        <a href="@Url.Action("Index", "Home")" class="logo">
+            <img src="@Url.Content("~/assets/logo_lib.png")" />
+        </a>
+
+        <nav class="navbar">
+            <a href="@Url.Action("Index", "Home")"><i class="bx bx-home-heart"></i>Home</a>
+            <a href="@Url.Action("Index", "AboutUs")"><i class="bx bxs-news"></i>AboutUs</a>
+            <a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
+            <a href="@Url.Action("Index", "WishList")"><i class="fa fa-heart"></i>WishList</a>
+            <a href="@Url.Action("Index", "Bookshelf")"><i class='bx bx-book-open'></i>Bookshelf</a>
+            <a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
+           
+        </nav>
+        <partial name="_LoginPartial" />
+    </header>
+        <video class="background-video" autoplay loop muted plays-inline>
+            <source src="@Url.Content("~/assets/background/wizard_library_background_video.mp4")" />
+        </video>
+
+    <div class="wishlist-container">
+        <h1 class="wishlist-title">Your Book WishList</h1>
+        <p class="wishlist-description">Manage the books you've added to your wishlist.</p>
+
+        <div class="elements-WishList">
+            @if (Model.WishList_Book != null && Model.WishList_Book.Count > 0)
+            {
+                foreach (var book in Model.WishList_Book)
+                {
+                    <div class="item-WishList">
+                        <h3>@(book.Book?.Title ?? "Unknown Book")</h3>
+                        <p><strong>Category:</strong> @book.Book?.Category</p>
+                        <p><strong>Release Year:</strong> @book.Book?.ReleaseYear</p>
+                        <div class="WishList">
+                            <img src="@Url.Content($"~/assets/books/{book.ISBN}.png")"
+                                 alt="@book.Book?.Title"
+                                 class="book-cover"
+                                 onerror="this.src='@Url.Content("~/assets/books/default_book.png")'" />
+                      
+                        </div>
+                       
+                            <div class="wishlist-actions" style="display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
+
+                                <form asp-action="RemoveBookFromWishList" method="post" style="margin: 0;">
+                                    <input type="hidden" name="isbn" value="@book.ISBN" />
+                                    <button type="submit" class="delete-btn"
+                                            style="background-color: #6c757d; color: white; border: none; padding: 12px; cursor: pointer;
+                       transition: transform 0.2s ease, background-color 0.3s ease; border-radius: 50%;
+                       width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
+                       box-shadow: 0 4px 8px rgba(0,0,0,0.2);"
+                                            onmouseover="this.style.backgroundColor='#5a6268'; this.style.transform='scale(1.1)';"
+                                            onmouseout="this.style.backgroundColor='#6c757d'; this.style.transform='scale(1)';">
+                                        <i class="fa fa-trash" style="font-size: 24px;"></i>
+                                    </button>
+                                </form>
+
+                            <form asp-controller="Request" asp-action="Create" method="get" style="margin: 0;">
+                                    <input type="hidden" name="isbn" value="@book.ISBN" />
+                                    <button type="submit" class="command-btn"
+                                            style="background-color: #17a2b8;margin-left:15rem; color: white; border: none; padding: 12px; cursor: pointer;
+                       transition: transform 0.2s ease, background-color 0.3s ease; border-radius: 50%;
+                       width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
+                       box-shadow: 0 4px 8px rgba(0,0,0,0.2);"
+                                            onmouseover="this.style.backgroundColor='#138496'; this.style.transform='scale(1.1)';"
+                                            onmouseout="this.style.backgroundColor='#17a2b8'; this.style.transform='scale(1)';">
+                                        <i class="fas fa-pen-fancy" style="font-size: 24px;"></i>
+                                    </button>
+                                </form>
+
+                            </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Your wishlist is currently empty.</p>
+            }
+        </div>
+        <div class="button-Wish">
+            <form asp-action="AddMore" method="get">
+                <button type="submit" class="btn-Wish">Explore More Books</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

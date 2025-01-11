@@ -19,6 +19,8 @@ namespace Library.Repositories
         private IReservedBookRepository? _reservedBookRepository;
         private IReturnRequestRepository? _returnRequestRepository;
         private IContactFormRepository? _contactFormRepository;
+        private IWishListRepository? _wishListRepository;
+        private IWishList_BookRepository? _wishList_BookRepository;
 
         public IContactFormRepository ContactFormRepository
         {
@@ -153,15 +155,42 @@ namespace Library.Repositories
             }
         }
 
+        public IWishListRepository WishListRepository
+        {
+            get
+            {
+                if (_wishListRepository == null)
+                {
+                    _wishListRepository = new WishListRepository(_libraryContext);
+                }
+                return _wishListRepository;
+            }
+        }
+
+        public IWishList_BookRepository WishList_BookRepository
+        {
+            get
+            {
+                if (_wishList_BookRepository == null)
+                {
+                    _wishList_BookRepository = new WishList_BookRepository(_libraryContext);
+                }
+                return _wishList_BookRepository;
+            }
+        }
 
         public RepositoryWrapper(LibraryContext libraryContext)
         {
             _libraryContext = libraryContext;
         }
-
         public void Save()
         {
             _libraryContext.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _libraryContext.SaveChangesAsync();
         }
     }
 }

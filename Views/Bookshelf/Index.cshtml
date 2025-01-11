@@ -23,18 +23,20 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>@ViewData["Title"]</title>
    <link rel="stylesheet" href="~/css/style.css" />
+	
    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
    <header class="header-nav">
       <a href="@Url.Action("Index", "Home")" class="logo">
          <img src="@Url.Content("~/assets/logo_lib.png")" />
       </a>
-      <h5 class="page-type">Mistery Bookshelf</h5>
       <nav class="navbar">
          <a href="@Url.Action("Index", "Home")"><i class="bx bx-home-heart"></i>Home</a>
 			<a href="@Url.Action("Index", "AboutUs")"><i class="bx bxs-news"></i>AboutUs</a>
          <a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
+
          <a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
          @if (isAdmin)
          {
@@ -45,9 +47,11 @@
    </header>
 
 <div class="showcase">
-	<video class="background-video" autoplay loop muted plays-inline>
-		<source src="@Url.Content("~/assets/background/wizard_library_background_video.mp4")" />
-	</video>
+
+		<video class="background-video" autoplay loop muted plays-inline>
+			<source src="@Url.Content("~/assets/background/wizard_library_background_video.mp4")" />
+		</video>
+
 
 	<div class="container">
 		@foreach (var book in Model)
@@ -56,10 +60,25 @@
 				<img src="@Url.Content($"~/assets/books/{book.ISBN}.png")" alt="@book.Title" onerror="this.src='@Url.Content("~/assets/default_book.png")'">
 				<div class="card-content">
 					<h2>@book.Title</h2>
-					<p> @book.Category</p>
+						<div class="book-category-container" style="display: flex; align-items: center; gap: 10px;">
+							<p style="margin: 0;">@book.Category</p>
+							<form method="post" action="@Url.Action("AddBookToWishList", "WishList")" style="margin: 0;">
+								<input type="hidden" name="isbn" value="@book.ISBN" />
+								<button type="submit"
+										style="border: none; margin-left: 8rem; background: none; cursor: pointer; font-size: 2rem; color: red; outline: none;
+                transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; position: relative; display: inline-block;"
+										onmouseover="this.style.color='#ff69b4'; this.style.transform='scale(1.2)'; this.style.animation='pulse 1.5s infinite';"
+										onmouseout="this.style.color='red'; this.style.transform='scale(1)'; this.style.animation='none';"
+										onmousedown="this.style.color='#b22222'; this.style.transform='scale(1)';"
+										onmouseup="this.style.color='#ff69b4'; this.style.transform='scale(1.2)';">
+									<i class="fa fa-heart"></i>
+								</button>
+							</form>
+						</div>
+
 					<a class="more-details" href="@Url.Action("Create", "Request", new { isbn = book.ISBN })">Request Book</a>
 					<a class="more-details" href="@Url.Action("Index", "Review", new { isbn = book.ISBN })">Review</a>
-
+						
 				</div>
 			</div>
 		}

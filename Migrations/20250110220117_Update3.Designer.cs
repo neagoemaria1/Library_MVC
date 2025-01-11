@@ -4,6 +4,7 @@ using Library.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    partial class LibraryContextModelSnapshot : ModelSnapshot
+    [Migration("20250110220117_Update3")]
+    partial class Update3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,11 +374,11 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.Models.WishList_Book", b =>
                 {
-                    b.Property<int>("ID_WishList_Book")
+                    b.Property<int>("ID_WishList_Produs")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_WishList_Book"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_WishList_Produs"));
 
                     b.Property<int>("ID_WishList")
                         .HasColumnType("int");
@@ -383,13 +386,13 @@ namespace Library.Migrations
                     b.Property<string>("ISBN")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("ID_WishList_Book");
+                    b.HasKey("ID_WishList_Produs");
 
                     b.HasIndex("ID_WishList");
 
                     b.HasIndex("ISBN");
 
-                    b.ToTable("WishListBooks");
+                    b.ToTable("WishList_Book");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -653,8 +656,7 @@ namespace Library.Migrations
 
                     b.HasOne("Library.Models.Book", "Book")
                         .WithMany("WishList_Book")
-                        .HasForeignKey("ISBN")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ISBN");
 
                     b.Navigation("Book");
 

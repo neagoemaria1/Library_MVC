@@ -10,7 +10,7 @@
 	var isAdmin = isAdminTask.Result;
 }
 @{
-	ViewData["Title"] = "HomePage";
+	ViewData["Title"] = "Home";
 	Layout = null;
 }
 @model List<Library.Models.ReservedBook>
@@ -37,6 +37,7 @@
 			<a href="@Url.Action("Index", "AboutUs")"><i class="bx bxs-news"></i>AboutUs</a>
 			<a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
 			<a href="@Url.Action("Index", "WishList")"><i class="fa fa-heart"></i>WishList</a>
+			<a href="@Url.Action("Index", "Bookshelf")"><i class='bx bx-book-open'></i>Bookshelf</a>
 			<a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
 			@if (isAdmin)
 			{

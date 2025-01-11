@@ -14,6 +14,9 @@
         IReservedBookRepository ReservedBookRepository { get; }
         IReturnRequestRepository ReturnRequestRepository { get; }
         IContactFormRepository ContactFormRepository { get; }
+        IWishList_BookRepository WishList_BookRepository { get; }
+        IWishListRepository WishListRepository { get; }
+        Task SaveAsync();
         void Save();
     }
 }

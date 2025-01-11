@@ -16,6 +16,7 @@ namespace Library.Models
         public ICollection<Request>? Requests { get; set; }
         public ICollection<Review>? Reviews { get; set; }
         public ICollection<ReservedBook>? ReservedBooks { get; set; }
+        public ICollection<WishList_Book>? WishList_Book { get; set; }
 
         [ForeignKey("Bookshelf")]
         public int IdBookshelf { get; set; }

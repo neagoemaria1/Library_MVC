@@ -15,17 +15,20 @@
    <link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
    <link rel="stylesheet" href="@Url.Content("~/css/about.css")" />
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="about-page">
 <header class="header-nav">
 <a href="@Url.Action("Index", "Home")" class="logo">
 	<img src="@Url.Content("~/assets/logo_lib.png")" />
 </a>
-      <h5 class="page-type">About us</h5>
 <nav class="navbar">
 <a href="@Url.Action("Index", "Home")"><i class="bx bx-home-heart"></i>Home</a>
 <a href="@Url.Action("Index", "AboutUs")"><i class="bx bx-news"></i>AboutUs</a>
 <a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
+            <a href="@Url.Action("Index", "WishList")"><i class="fa fa-heart"></i>WishList</a>
+            <a href="@Url.Action("Index", "Bookshelf")"><i class='bx bx-book-open'></i>Bookshelf</a>
 <a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
 </nav>
 <partial name="_LoginPartial" />
