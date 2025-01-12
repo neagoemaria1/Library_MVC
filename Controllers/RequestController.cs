@@ -33,8 +33,7 @@ namespace Library.Controllers
         }
 
         [HttpGet]
-
-        public async Task<IActionResult> Create(string isbn)
+        public async Task<IActionResult> Create(string isbn) // Create a Form for a Book
         {
             var book = _bookService.GetBookByISBN(isbn);
             if (book == null)
@@ -70,7 +69,8 @@ namespace Library.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Request request)
+
+        public async Task<IActionResult> Create(Request request)  // Submit a New Book Request
         {
             var user = _userService.GetCurrentUser();
 
@@ -177,15 +177,16 @@ namespace Library.Controllers
             {
                 return NotFound();
             }
-
+            // Find the reserved book associated with the return request
             var reservedBook = await _reservedBookService.GetReservedBookByUserAndISBNAsync(returnRequest.IdUser, returnRequest.BookISBN);
             if (reservedBook != null)
             {
                 _reservedBookService.DeleteReservedBook(reservedBook.IdReservedBook);
             }
-
+            // Remove the return request from the database
             await _returnRequestService.DeleteReturnRequestAsync(requestId);
 
+            // Attempt to retrieve the original book request made by the user for the same book
             var originalRequest = _requestService.GetRequestByUserAndBookISBN(returnRequest.IdUser, returnRequest.BookISBN);
             if (originalRequest != null)
             {

@@ -29,7 +29,7 @@ namespace Library.Controllers
             {
                 _contactFormService.AddContactForm(contactForm);
 
-                ViewBag.Message = "Mesajul a fost trimis cu succes!";
+                ViewBag.Message = "The message was sent successfully!";
                 return View("Index");
             }
 

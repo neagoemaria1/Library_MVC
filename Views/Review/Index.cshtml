@@ -12,6 +12,9 @@
    <title>@ViewData["Title"]</title>
    <link rel="stylesheet" href="~/css/style.css" />
    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+   <link rel="icon" type="image/svg+xml" href="https://unpkg.com/boxicons@2.1.4/svg/solid/bxs-star.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head> 
 <body class="review-body">
    <header class="header-nav">
@@ -28,12 +31,18 @@
       </nav>
       <partial name="_LoginPartial" />
    </header>
-
+    <video class="background-video" autoplay loop muted plays-inline>
+        <source src="@Url.Content("~/assets/background/wizard_library_background_video.mp4")" />
+    </video>
    <div class="wrapper">
       <div class="book-details">
          <img src="@Url.Content($"~/assets/books/{ViewData["ISBN"]}.png")" alt="@ViewBag.BookTitle" onerror="this.src='@Url.Content("~/assets/default_book.png")'">
       </div>
       <h3>Review the book, let us know about your experience</h3>
+        <p id="infoMessage" style="color: #555; font-size: 14px; margin-bottom: 10px;">
+            To submit a review, please select at least one star and provide a description.
+        </p>
+
       <form method="post" action="@Url.Action("AddReview", "Review", new { isbn = ViewData["ISBN"] })">
          <input type="hidden" name="BookISBN" value="@ViewData["ISBN"]" />
          <div class="rating">
@@ -44,10 +53,10 @@
             <i class="bx bx-star star" style="--i: 3"></i>
             <i class="bx bx-star star" style="--i: 4"></i>
          </div>
-         <textarea class="text-review" name="Content" cols="30" rows="5" placeholder="Your opinion..."></textarea>
+         <textarea class="text-review" name="Content" cols="30" rows="5" placeholder="Your opinion..."required></textarea>
          <div class="btn-group">
             <button type="submit" class="btn submit">Submit</button>
-         
+              
          </div>
       </form>
    </div>

@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
+    // Select all elements with class 'review'
     const reviews = document.querySelectorAll(".review");
 
     reviews.forEach(review => {
@@ -15,10 +16,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
+// Select all stars used for rating input
 const allStar = document.querySelectorAll('.rating .star');
 const ratingValue = document.querySelector('.rating input');
 
+// Add a click event to each star
 allStar.forEach((item, idx) => {
     item.addEventListener('click', function () {
         let click = 0;
@@ -29,6 +31,7 @@ allStar.forEach((item, idx) => {
             i.classList.remove('active');
         });
 
+        // Iterate through the stars again and color them up to the pressed star
         for (let i = 0; i < allStar.length; i++) {
             if (i <= idx) {
                 allStar[i].classList.replace('bx-star', 'bxs-star');

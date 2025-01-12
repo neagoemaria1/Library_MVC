@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
     <link rel="stylesheet" href="@Url.Content("~/css/wishlist.css")" />
+    <link rel="icon" type="image/svg+xml" href="https://unpkg.com/boxicons@2.1.4/svg/solid/bxs-heart-circle.svg">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
           rel="stylesheet" />
 </head>
@@ -51,7 +52,7 @@
 
     <div class="wishlist-container">
         <h1 class="wishlist-title">Your Book WishList</h1>
-        <p class="wishlist-description">Manage the books you've added to your wishlist.</p>
+        <p class="wishlist-description">𝐌𝐚𝐧𝐚𝐠𝐞 𝐭𝐡𝐞 𝐛𝐨𝐨𝐤𝐬 𝐲𝐨𝐮'𝐯𝐞 𝐚𝐝𝐝𝐞𝐝 𝐭𝐨 𝐲𝐨𝐮𝐫 𝐰𝐢𝐬𝐡𝐥𝐢𝐬𝐭.</p>
 
         <div class="elements-WishList">
             @if (Model.WishList_Book != null && Model.WishList_Book.Count > 0)
@@ -88,7 +89,7 @@
                             <form asp-controller="Request" asp-action="Create" method="get" style="margin: 0;">
                                     <input type="hidden" name="isbn" value="@book.ISBN" />
                                     <button type="submit" class="command-btn"
-                                            style="background-color: #17a2b8;margin-left:15rem; color: white; border: none; padding: 12px; cursor: pointer;
+                                            style="background-color: #17a2b8;margin-left:20rem; color: white; border: none; padding: 12px; cursor: pointer;
                        transition: transform 0.2s ease, background-color 0.3s ease; border-radius: 50%;
                        width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;
                        box-shadow: 0 4px 8px rgba(0,0,0,0.2);"

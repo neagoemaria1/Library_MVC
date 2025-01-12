@@ -1,4 +1,4 @@
-@import url(ttps://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+﻿@import url(ttps://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
 
 * {
     box-sizing: border-box;
@@ -208,11 +208,12 @@ html, body {
 }
 
 .container {
-    margin-top: 2.5rem;
+    margin-top: 8rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 20px;
+    padding-bottom: 2rem;
     gap: 10px;
 }
 
@@ -303,15 +304,7 @@ html, body {
         font-size: 0.9rem;
     }
 }
-
-.basic-blue-body {
-    background-image: url("../assets/background/library_background_1.jpg");
-    background-size: cover;
-    background-position: center;
-    margin: 0;
-    min-height: 100vh;
-}
-
+/* Review */
 .review-body {
     background-image: url("../assets/background/library_background_1.jpg");
     background-size: cover;
@@ -346,7 +339,7 @@ html, body {
 .book-details {
     margin-bottom: 1.5rem;
     width: 17rem;
-    margin-left: 7rem;
+    margin-left: 13rem;
     height: 25rem;
 }
 
@@ -423,6 +416,23 @@ html, body {
     color: #333;
     font-size: 1rem;
 }
+
+.btn.submit {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .btn.submit:hover {
+        background-color: #2980b9;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 
 .btn-group {
     display: flex;
@@ -516,7 +526,7 @@ html, body {
 }
 
 
-/* ABOUT US */
+/* AboutUs */
 
 .about-video {
     position: fixed;

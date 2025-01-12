@@ -2,14 +2,14 @@
 let currentIndex = 0;
 
 function showNextItem() {
-   carouselItems[currentIndex].classList.remove('active');
-   currentIndex = (currentIndex + 1) % carouselItems.length;
-   carouselItems[currentIndex].classList.add('active');
+    carouselItems[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % carouselItems.length;
+    carouselItems[currentIndex].classList.add('active');
 }
 
-// Verifică dacă este primul element
+// Check if it is the first element
 if (currentIndex === 0) {
-   carouselItems[0].classList.add('active');
+    carouselItems[0].classList.add('active');
 }
 
-setInterval(showNextItem, 7000); // Schimbă elementul la fiecare 7 secunde
+setInterval(showNextItem, 7000); // Change the element every 7 seconds

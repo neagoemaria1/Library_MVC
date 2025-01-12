@@ -23,6 +23,7 @@
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link rel="stylesheet" href="@Url.Content("~/css/style.css")" />
+	<link rel="icon" type="image/png" href="https://unpkg.com/boxicons@2.1.4/svg/solid/bxs-home.svg">
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
 		  rel="stylesheet" />
 </head>
@@ -63,7 +64,7 @@
 		@if (Model != null && Model.Any())
 		{
 			<div class="reminder">
-				<h2>Reminder: You have reserved books to return!</h2>
+				<h2>Reminder: You have books to return!</h2>
 				<ul>
 					@foreach (var reservedBook in Model)
 					{

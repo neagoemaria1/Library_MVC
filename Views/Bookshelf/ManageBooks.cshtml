@@ -12,6 +12,7 @@
    <title>@ViewData["Title"]</title>
    <link rel="stylesheet" href="~/css/manage.css" />
    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+	<link rel="icon" type="image/svg+xml" href="https://unpkg.com/boxicons@2.1.4/svg/solid/bxs-folder-open.svg">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
@@ -24,6 +25,7 @@
          <a href="@Url.Action("Index", "Home")"><i class="bx bx-home-heart"></i>Home</a>
 			<a href="@Url.Action("Index", "AboutUs")"><i class="bx bxs-news"></i>AboutUs</a>
          <a href="@Url.Action("Index", "Contact")"><i class="bx bxs-contact"></i>Contact</a>
+			<a href="@Url.Action("Index", "WishList")"><i class="fa fa-heart"></i>WishList</a>
 			<a href="@Url.Action("Index", "Bookshelf")"><i class='bx bx-book-open'></i>Bookshelf</a>
          <a href="@Url.Page("/Account/Manage/Index", new { area = "Identity" })"><i class="bx bx-cog"></i>Settings</a>
       </nav>

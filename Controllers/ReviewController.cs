@@ -36,14 +36,14 @@ namespace Library.Controllers
                 var reviewViewModel = new ReviewViewModel
                 {
                     Review = review,
-                    UserName = user.UserName // Assuming UserName is a property of your User model
+                    UserName = user.UserName
                 };
                 reviewViewModels.Add(reviewViewModel);
             }
 
             ViewData["ISBN"] = isbn;
-            var book = _bookService.GetBookByISBN(isbn); // Assuming you have a service to get book details
-            ViewBag.BookTitle = book.Title; // Pass the book title to the view
+            var book = _bookService.GetBookByISBN(isbn);
+            ViewBag.BookTitle = book.Title;
 
             return View(reviewViewModels);
         }
@@ -52,8 +52,16 @@ namespace Library.Controllers
         public async Task<IActionResult> AddReview(Review review, string isbn)
         {
             try
-            {
+            { // Validate if the review content is empty or if the rating is less than 1 star
+                if (string.IsNullOrWhiteSpace(review.Content) || review.Rating < 1)
+                {
+                    ModelState.AddModelError("", "The review must contain a description and at least one star.");
+                    return RedirectToAction("Index", new { isbn });
+                }
+
                 var currentUser = _userService.GetCurrentUser();
+
+                // Assign the current user to the review object
                 review.User = currentUser;
                 review.IdUser = currentUser.Id;
                 review.BookISBN = isbn;
@@ -65,6 +73,7 @@ namespace Library.Controllers
                 return RedirectToAction("Index", new { isbn });
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> DeleteReview(int id, string isbn)
