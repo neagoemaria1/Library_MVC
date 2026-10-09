@@ -156,4 +156,4 @@ The main goals of Virtual Bookshelf are to:
 
 The following diagram illustrates the main interactions between guests, registered users, and administrators in the Virtual Bookshelf application.
 
-![Virtual Bookshelf Use Case Diagram](./Library_MVC/wwwroot/Use_Case_Diagram.png)
+![Virtual Bookshelf Use Case Diagram](./wwwroot/Use_Case_Diagram.png)
